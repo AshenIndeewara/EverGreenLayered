@@ -1,4 +1,4 @@
-package com.evergreen.zoo.dto;
+package com.evergreen.zoo.entity;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class TicketDto {
+public class Ticket {
     private double total;
     private String paymentMethod;
     private int adult;

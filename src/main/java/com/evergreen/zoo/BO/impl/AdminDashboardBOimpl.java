@@ -1,5 +1,6 @@
-package com.evergreen.zoo.controller;
+package com.evergreen.zoo.BO.impl;
 
+import com.evergreen.zoo.controller.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -14,7 +15,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import lombok.Setter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,7 +24,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class AdminDashboardController implements Initializable {
+public class AdminDashboardBOimpl implements Initializable {
 
 
     @FXML

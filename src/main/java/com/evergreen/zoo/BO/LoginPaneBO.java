@@ -1,4 +1,10 @@
 package com.evergreen.zoo.BO;
 
-public interface LoginPaneBO {
+import com.evergreen.zoo.dto.LoginDto;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public interface LoginPaneBO extends SuperBo{
+    ResultSet checkLogin(LoginDto loginDto) throws SQLException;
 }
