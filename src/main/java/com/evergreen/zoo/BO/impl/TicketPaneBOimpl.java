@@ -7,6 +7,8 @@ import com.evergreen.zoo.dao.TicketDAO;
 import com.evergreen.zoo.dao.impl.TicketDAOimpl;
 import com.evergreen.zoo.dto.TicketDto;
 import com.evergreen.zoo.entity.Ticket;
+import com.evergreen.zoo.entity.Visitor;
+import com.evergreen.zoo.entity.Visitordetails;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,19 +29,34 @@ public class TicketPaneBOimpl implements TicketPaneBO {
 
     @Override
     public void addTicket(TicketDto ticketDto) throws SQLException {
+        Visitor visitor = new Visitor();
+        visitor.setName(ticketDto.getName());
+        visitor.setEmail(ticketDto.getEmail());
+        visitor.setNumber(ticketDto.getNum());
+        visitor.setEmID(Integer.parseInt(ticketDto.getEmployeeId()));
 
-        ticketDAO.addTicket(new Ticket(
-                ticketDto.getTotal(),
-                ticketDto.getPaymentMethod(),
-                ticketDto.getAdult(),
-                ticketDto.getChild(),
-                ticketDto.getForeigner(),
-                ticketDto.getForeignerChild(),
-                ticketDto.getStudent(),
-                ticketDto.getName(),
-                ticketDto.getEmail(),
-                ticketDto.getNum(),
-                ticketDto.getEmployeeId()));
+        Visitordetails adult = new Visitordetails();
+        adult.setQty(ticketDto.getAdult());
+
+        Visitordetails child = new Visitordetails();
+        child.setQty(ticketDto.getChild());
+
+        Visitordetails foreigner = new Visitordetails();
+        foreigner.setQty(ticketDto.getForeigner());
+
+        Visitordetails foreignerChild = new Visitordetails();
+        foreignerChild.setQty(ticketDto.getForeignerChild());
+
+        Visitordetails student = new Visitordetails();
+        student.setQty(ticketDto.getStudent());
+        ticketDAO.addTicket(
+                visitor,
+                adult,
+                child,
+                foreigner,
+                foreignerChild,
+                student
+        );
     }
 
     @Override

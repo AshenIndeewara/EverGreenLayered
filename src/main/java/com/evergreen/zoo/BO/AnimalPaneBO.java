@@ -2,6 +2,7 @@ package com.evergreen.zoo.BO;
 
 import com.evergreen.zoo.dto.AnimalDto;
 import com.evergreen.zoo.dto.tanleDto.AnimalTDto;
+import com.evergreen.zoo.entity.Animal;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 public interface AnimalPaneBO extends SuperBo {
     Boolean isUpdateAnimal(String animalID, AnimalDto animalDto);
 
-    ArrayList<AnimalTDto> searchAnimal(String search);
+    ArrayList<AnimalTDto> searchAnimal(String search) throws SQLException;
 
     String getSpeciesID(String selectedItem);
 
@@ -19,7 +20,7 @@ public interface AnimalPaneBO extends SuperBo {
 
     ArrayList<String> getSpecies() throws SQLException, ClassNotFoundException;
 
-    boolean isAddAnimal(AnimalDto animalDto) throws SQLException;
+    boolean isAddAnimal(AnimalDto animal) throws SQLException;
 
     String getDiet(String diet) throws SQLException, ClassNotFoundException;
 

@@ -28,7 +28,7 @@ public class AnimalPaneBOimpl implements AnimalPaneBO {
     }
 
     @Override
-    public ArrayList<AnimalTDto> searchAnimal(String search) {
+    public ArrayList<AnimalTDto> searchAnimal(String search) throws SQLException {
         return animalDAO.search(search);
     }
 
@@ -53,15 +53,15 @@ public class AnimalPaneBOimpl implements AnimalPaneBO {
     }
 
     @Override
-    public boolean isAddAnimal(AnimalDto animalDto) throws SQLException {
+    public boolean isAddAnimal(AnimalDto animal) throws SQLException {
         return animalDAO.isAdd(new Animal(
-                animalDto.getName(),
-                animalDto.getSpecies(),
-                animalDto.getHealth(),
-                animalDto.getHealthDescription(),
-                animalDto.getGender(),
-                animalDto.getAge(),
-                animalDto.getEmployeeID()
+                animal.getName(),
+                animal.getSpecies(),
+                animal.getHealth(),
+                animal.getHealthDescription(),
+                animal.getGender(),
+                animal.getAge(),
+                animal.getEmployeeID()
         ));
     }
 

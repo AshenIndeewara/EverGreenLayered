@@ -144,6 +144,7 @@ public class SupplierController implements Initializable {
 
     @FXML
     void deleteSupplier(ActionEvent event) throws SQLException {
+        System.out.println("Delete");
         SupplierDto supplierDto = supTable.getSelectionModel().getSelectedItem();
         ArrayList<FoodDto> items = supplierBO.getSupplierItems(supplierDto.getSupplierID());
         if(items.size() > 0){
@@ -168,6 +169,31 @@ public class SupplierController implements Initializable {
                     ).start();
                     loadSuppliers();
                 }else{
+                    new ShowNotification("Supplier Deleted Unsuccessful",
+                            "Supplier has not been deleted successfully",
+                            "unsuccess.png",
+                            "he he login notification eka click kala"
+                    ).start();
+                }
+            }
+        }else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText("Delete Supplier");
+            alert.setContentText("Do you want to delete this supplier?");
+            alert.showAndWait();
+            if(alert.getResult().getText().equals("Cancel")){
+                return;
+            }else {
+                Boolean isDeleted = supplierBO.isDeleteSupplier(supplierDto, items);
+                if (isDeleted) {
+                    new ShowNotification("Supplier Deleted",
+                            "Supplier has been deleted successfully",
+                            "success.png",
+                            "he he login notification eka click kala"
+                    ).start();
+                    loadSuppliers();
+                } else {
                     new ShowNotification("Supplier Deleted Unsuccessful",
                             "Supplier has not been deleted successfully",
                             "unsuccess.png",

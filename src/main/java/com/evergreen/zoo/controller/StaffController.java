@@ -152,6 +152,7 @@ public class StaffController implements Initializable {
 
     @FXML
     void emDelete(ActionEvent event) {
+        System.out.print("Delete clicked");
         if(!nameRegex || !emailRegex || !numberRegex) {
             new ShowNotification("Error",
                     "Please fill all the fields correctly",
@@ -164,19 +165,27 @@ public class StaffController implements Initializable {
         boolean yes = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete " + selectedItem.getStaffName() + "?", ButtonType.YES, ButtonType.NO).showAndWait().get() == ButtonType.YES;
         if (!yes) return;
         try {
-            staffBO.deleteStaff(selectedItem);
-            refreshTable();
-            new ShowNotification("Employee Deleted",
-                    "Employee "+ selectedItem.getStaffName()+" has been deleted successfully",
-                    "success.png",
-                    "GREEN"
-            ).start();
+            if(staffBO.deleteStaff(selectedItem)){
+                refreshTable();
+                new ShowNotification("Employee Deleted",
+                        "Employee "+ selectedItem.getStaffName()+" has been deleted successfully",
+                        "success.png",
+                        "GREEN"
+                ).start();
+            }else {
+                new ShowNotification("Employee Deleted unsuccessful",
+                        "Employee "+ selectedItem.getStaffName()+" has not been deleted successfully",
+                        "unsuccess.png",
+                        "RED"
+                ).start();
+            }
         } catch (SQLException e) {
             new ShowNotification("Employee Deleted unsuccessful",
                     "Employee "+ selectedItem.getStaffName()+" has not been deleted successfully",
                     "unsuccess.png",
                     "RED"
             ).start();
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
@@ -196,19 +205,28 @@ public class StaffController implements Initializable {
         int userid = staffBO.getEmployeeId(selectedItem);
         System.out.println(userid);
         try {
-            staffBO.updateStaff(new StaffDto(
+            boolean isUpdate = staffBO.updateStaff(new StaffDto(
                     emName.getText(),
                     emRole.getValue(),
                     emNumber.getText(),
                     emEmail.getText()),
                     userid);
             refreshTable();
-            new ShowNotification("Employee Updated",
-                    "Employee "+ selectedItem.getStaffName()+" has been updated successfully",
-                    "success.png",
-                    "GREEN"
-            ).start();
+            if (!isUpdate) {
+                new ShowNotification("Employee Updated unsuccessful",
+                        "Employee "+ selectedItem.getStaffName()+" has not been updated successfully",
+                        "unsuccess.png",
+                        "RED"
+                ).start();
+            }else {
+                new ShowNotification("Employee Updated",
+                        "Employee "+ selectedItem.getStaffName()+" has been updated unsuccessfully",
+                        "success.png",
+                        "RED"
+                ).start();
+            }
         } catch (SQLException e) {
+            e.printStackTrace();
             new ShowNotification("Employee Updated unsuccessful",
                     "Employee "+ selectedItem.getStaffName()+" has not been updated successfully",
                     "unsuccess.png",

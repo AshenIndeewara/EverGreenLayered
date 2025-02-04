@@ -243,7 +243,7 @@ public class AnimalPaneController implements Initializable {
     }
 
     @FXML
-    void searchAnimal(KeyEvent event) {
+    void searchAnimal(KeyEvent event) throws SQLException {
         
         String search = animalSearch.getText();
         ArrayList<AnimalTDto> animalTDtos = animalBO.searchAnimal(search);
@@ -253,7 +253,6 @@ public class AnimalPaneController implements Initializable {
 
     @FXML
     void updateAnimal(ActionEvent event) throws SQLException, ClassNotFoundException {
-
         AnimalTDto selectedItem = animalTable.getSelectionModel().getSelectedItem();
         animalDto.setName(animalName.getText());
         animalDto.setSpecies(animalBO.getSpeciesID(animalSpecies.getSelectionModel().getSelectedItem()));

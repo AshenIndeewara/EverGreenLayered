@@ -5,9 +5,12 @@ import com.evergreen.zoo.dao.DAOFactory;
 import com.evergreen.zoo.dao.DAOTypes;
 import com.evergreen.zoo.dao.RegisterDAO;
 import com.evergreen.zoo.dto.RegisterDto;
+import com.evergreen.zoo.entity.Employee;
+import com.evergreen.zoo.entity.Users;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class RegisterPaneBOimpl implements RegisterPaneBO {
     RegisterDAO registerDAO = (RegisterDAO) DAOFactory.getDAOFactory().getDAO(DAOTypes.REGISTRDAO);
@@ -18,7 +21,16 @@ public class RegisterPaneBOimpl implements RegisterPaneBO {
 
     @Override
     public boolean registerUser(RegisterDto registerDto) throws SQLException {
-        return registerDAO.registerUser(registerDto);
+        return registerDAO.registerUser(new Employee(
+                registerDto.getName(),
+                registerDto.getEmail(),
+                registerDto.getPhone(),
+                registerDto.getAddress(),
+                String.valueOf(registerDto.getRole())
+        ), new Users(
+                registerDto.getUsername(),
+                registerDto.getPassword()
+        ));
     }
 
     @Override

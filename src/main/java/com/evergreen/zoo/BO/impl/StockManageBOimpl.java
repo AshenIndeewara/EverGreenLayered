@@ -5,6 +5,7 @@ import com.evergreen.zoo.dao.DAOFactory;
 import com.evergreen.zoo.dao.DAOTypes;
 import com.evergreen.zoo.dao.StockDAO;
 import com.evergreen.zoo.dto.tanleDto.StockDto;
+import com.evergreen.zoo.entity.Food;
 
 import java.util.ArrayList;
 
@@ -42,6 +43,8 @@ public class StockManageBOimpl implements StockManageBO {
 
     @Override
     public boolean isDeleteItem(StockDto item) {
-        return stockDAO.isDeleteItem(item);
+        Food food = new Food();
+        food.setFoodID(Integer.parseInt(item.getItemID()));
+        return stockDAO.isDeleteItem(food);
     }
 }

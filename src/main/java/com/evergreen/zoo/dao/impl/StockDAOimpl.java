@@ -2,6 +2,7 @@ package com.evergreen.zoo.dao.impl;
 
 import com.evergreen.zoo.dao.StockDAO;
 import com.evergreen.zoo.dto.tanleDto.StockDto;
+import com.evergreen.zoo.entity.Food;
 import com.evergreen.zoo.util.CrudUtil;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -118,11 +119,11 @@ public class StockDAOimpl implements StockDAO {
         return -1;
     }
 
-    public boolean isDeleteItem(StockDto item) {
+    public boolean isDeleteItem(Food food) {
         String sql = "DELETE FROM food WHERE foodId = ?";
-        System.out.println(item.toString());
+        System.out.println(food.toString());
         try {
-            CrudUtil.execute(sql, item.getItemID());
+            CrudUtil.execute(sql, food.getFoodID());
             return true;
         } catch (Exception e) {
             e.printStackTrace();

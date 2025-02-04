@@ -193,14 +193,14 @@ public class StockManageController implements Initializable {
         if(stockDAOimpl.isDeleteItem(item)) {
             getStock();
             new ShowNotification("Item deleted successfully",
-                    item+" deleted from the stock",
+                    item.getItem()+" deleted from the stock",
                     "success.png",
                     "he he login notification eka click kala"
             ).start();
             getItems();
         }else{
             new ShowNotification("Item delete failed",
-                    "Failed to delete "+item+" from the stock",
+                    "Failed to delete "+item.getItem()+" from the stock",
                     "unsuccess.png",
                     "he he login notification eka click kala"
             ).start();

@@ -13,5 +13,4 @@ public class ForgotDto {
     private String email;
     private String phoneNumber;
     private int OTP;
-
 }

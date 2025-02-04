@@ -8,6 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class Animal {
+    private String animalID;
     private String name;
     private String species;
     private String health;
@@ -24,5 +25,14 @@ public class Animal {
         this.gender = "";
         this.age = 0;
         this.employeeID = "";
+    }
+    public Animal(String name, String species, String health, String healthDescription, String gender, int age, String employeeID) {
+        this.name = name;
+        this.species = species;
+        this.health = health;
+        this.healthDescription = healthDescription;
+        this.gender = gender;
+        this.age = age;
+        this.employeeID = employeeID;
     }
 }

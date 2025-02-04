@@ -4,6 +4,8 @@ import com.evergreen.zoo.dao.TicketDAO;
 import com.evergreen.zoo.db.DBConnection;
 import com.evergreen.zoo.dto.TicketDto;
 import com.evergreen.zoo.entity.Ticket;
+import com.evergreen.zoo.entity.Visitor;
+import com.evergreen.zoo.entity.Visitordetails;
 import com.evergreen.zoo.util.CrudUtil;
 
 import java.sql.Connection;
@@ -32,35 +34,36 @@ public class TicketDAOimpl implements TicketDAO {
         }
     }
 
-    public void addTicket(Ticket ticketDto) throws SQLException {
+    @Override
+    public void addTicket(Visitor visitor, Visitordetails adult, Visitordetails child, Visitordetails foreigner, Visitordetails foreignerChild, Visitordetails student) throws SQLException {
         String sql = "insert into visitor (name, email, number,emID) values (?,?,?,?)";
 
         Connection connection = DBConnection.getInstance().getConnection();
         try {
             connection.setAutoCommit(false);
-            CrudUtil.execute(sql, ticketDto.getName(), ticketDto.getEmail(), ticketDto.getNum(), ticketDto.getEmployeeId());
+            CrudUtil.execute(sql, visitor.getName(), visitor.getEmail(), visitor.getNumber(), visitor.getEmID());
             ResultSet rs = CrudUtil.execute("select max(visitorID) from visitor");
             if (rs.next()) {
                 int visitorID = rs.getInt(1);
-                if(ticketDto.getAdult() > 0) {
+                if(adult.getQty() > 0) {
                     String sql1 = "insert into visitordetails (visitorID, ticketID, qty) values (?, ?, ?)";
-                    CrudUtil.execute(sql1, visitorID, 1, ticketDto.getAdult());
+                    CrudUtil.execute(sql1, visitorID, 1, adult.getQty());
                 }
-                if(ticketDto.getChild() > 0) {
+                if(child.getQty() > 0) {
                     String sql1 = "insert into visitordetails (visitorID, ticketID, qty) values (?, ?, ?)";
-                    CrudUtil.execute(sql1, visitorID, 2, ticketDto.getChild());
+                    CrudUtil.execute(sql1, visitorID, 2, child.getQty());
                 }
-                if(ticketDto.getStudent() > 0) {
+                if(student.getQty() > 0) {
                     String sql1 = "insert into visitordetails (visitorID, ticketID, qty) values (?, ?, ?)";
-                    CrudUtil.execute(sql1, visitorID, 3, ticketDto.getStudent());
+                    CrudUtil.execute(sql1, visitorID, 3, student.getQty());
                 }
-                if(ticketDto.getForeigner() > 0) {
+                if(foreigner.getQty() > 0) {
                     String sql1 = "insert into visitordetails (visitorID, ticketID, qty) values (?, ?, ?)";
-                    CrudUtil.execute(sql1, visitorID, 4, ticketDto.getForeigner());
+                    CrudUtil.execute(sql1, visitorID, 4, foreigner.getQty());
                 }
-                if(ticketDto.getForeignerChild() > 0) {
+                if(foreignerChild.getQty() > 0) {
                     String sql1 = "insert into visitordetails (visitorID, ticketID, qty) values (?, ?, ?)";
-                    CrudUtil.execute(sql1, visitorID, 5, ticketDto.getForeignerChild());
+                    CrudUtil.execute(sql1, visitorID, 5, foreignerChild.getQty());
                 }
                 connection.commit();
             }
@@ -71,6 +74,46 @@ public class TicketDAOimpl implements TicketDAO {
             connection.setAutoCommit(true);
         }
     }
+
+//    public void addTicket(Ticket ticketDto) throws SQLException {
+//        String sql = "insert into visitor (name, email, number,emID) values (?,?,?,?)";
+//
+//        Connection connection = DBConnection.getInstance().getConnection();
+//        try {
+//            connection.setAutoCommit(false);
+//            CrudUtil.execute(sql, ticketDto.getName(), ticketDto.getEmail(), ticketDto.getNum(), ticketDto.getEmployeeId());
+//            ResultSet rs = CrudUtil.execute("select max(visitorID) from visitor");
+//            if (rs.next()) {
+//                int visitorID = rs.getInt(1);
+//                if(ticketDto.getAdult() > 0) {
+//                    String sql1 = "insert into visitordetails (visitorID, ticketID, qty) values (?, ?, ?)";
+//                    CrudUtil.execute(sql1, visitorID, 1, ticketDto.getAdult());
+//                }
+//                if(ticketDto.getChild() > 0) {
+//                    String sql1 = "insert into visitordetails (visitorID, ticketID, qty) values (?, ?, ?)";
+//                    CrudUtil.execute(sql1, visitorID, 2, ticketDto.getChild());
+//                }
+//                if(ticketDto.getStudent() > 0) {
+//                    String sql1 = "insert into visitordetails (visitorID, ticketID, qty) values (?, ?, ?)";
+//                    CrudUtil.execute(sql1, visitorID, 3, ticketDto.getStudent());
+//                }
+//                if(ticketDto.getForeigner() > 0) {
+//                    String sql1 = "insert into visitordetails (visitorID, ticketID, qty) values (?, ?, ?)";
+//                    CrudUtil.execute(sql1, visitorID, 4, ticketDto.getForeigner());
+//                }
+//                if(ticketDto.getForeignerChild() > 0) {
+//                    String sql1 = "insert into visitordetails (visitorID, ticketID, qty) values (?, ?, ?)";
+//                    CrudUtil.execute(sql1, visitorID, 5, ticketDto.getForeignerChild());
+//                }
+//                connection.commit();
+//            }
+//        } catch (SQLException throwables) {
+//            connection.rollback();
+//            throwables.printStackTrace();
+//        } finally {
+//            connection.setAutoCommit(true);
+//        }
+//    }
 
     public Map<String, String> getUser(String number) {
         Map<String, String> user = new HashMap<>();

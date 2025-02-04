@@ -1,6 +1,7 @@
 package com.evergreen.zoo.dao;
 
 import com.evergreen.zoo.dto.tanleDto.StockDto;
+import com.evergreen.zoo.entity.Food;
 import com.evergreen.zoo.util.CrudUtil;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,5 +16,5 @@ public interface StockDAO extends SuperDAO {
     public ArrayList<String> getSupplier();
     public Boolean isAddNewItem(String itemName, int newQTY, double price, String supplierName, int minQTY);
     public int getIteeQty(String item);
-    public boolean isDeleteItem(StockDto item);
+    public boolean isDeleteItem(Food food);
 }

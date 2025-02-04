@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class DBConnection {
     private static DBConnection dbConnection;
     private final Connection connection;
-    private final String URL ="jdbc:mysql://localhost:3306/zoo";
+    private final String URL ="jdbc:mysql://localhost:3306/zoo2";
     private final String USER ="root";
     private final String PASSWORD ="Ijse@1234";
 

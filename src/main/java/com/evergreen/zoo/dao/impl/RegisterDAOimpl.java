@@ -3,6 +3,8 @@ package com.evergreen.zoo.dao.impl;
 import com.evergreen.zoo.dao.RegisterDAO;
 import com.evergreen.zoo.db.DBConnection;
 import com.evergreen.zoo.dto.RegisterDto;
+import com.evergreen.zoo.entity.Employee;
+import com.evergreen.zoo.entity.Users;
 import com.evergreen.zoo.util.CrudUtil;
 
 import java.sql.Connection;
@@ -28,6 +30,38 @@ public class RegisterDAOimpl implements RegisterDAO {
             return resultSet.getInt("role_id");
         }
         return -1;
+    }
+
+    @Override
+    public boolean registerUser(Employee employee, Users users) throws SQLException {
+        System.out.println("registerUser run wenawa");
+        Connection connection = DBConnection.getInstance().getConnection();
+
+        String sqlAdd = "INSERT INTO `users` (`username`, `password`) VALUES (?, ?)";
+        String SqlGetID = "SELECT LAST_INSERT_ID() AS `id`";
+        try {
+            connection.setAutoCommit(false);
+            if(CrudUtil.execute(sqlAdd, users.getUsername(), users.getPassword())){
+                System.out.println("user table ekata data add una");
+                ResultSet execute = CrudUtil.execute(SqlGetID);
+                if(execute.next()){
+                    System.out.println("last id eka gatta "+ execute.getString("id"));
+                    int userId = execute.getInt("id");
+                    String sqlAddEmployee = "INSERT INTO `employee` (`name`, `email`, `phone`, `address`, `position`, `hire_date`, `userId`) VALUES (?, ?, ?, ?, ?,?, ?)";
+                    if(CrudUtil.execute(sqlAddEmployee, employee.getName(), employee.getEmail(),employee.getPhone(),employee.getAddress(),employee.getPosition(), LocalDate.now().toString(), userId)){
+                        System.out.println("employee table ekata data add una");
+                        connection.commit();
+                        return true;
+                    }
+                }
+            }
+            throw new SQLException("Fail to save data...!");
+        } catch (SQLException e) {
+            connection.rollback();
+            return false;
+        } finally {
+            connection.setAutoCommit(true);
+        }
     }
 
     public ArrayList<String> getAllRoles() throws SQLException {

@@ -2,7 +2,6 @@ package com.evergreen.zoo.dao.impl;
 
 import com.evergreen.zoo.dao.AnimalDAO;
 import com.evergreen.zoo.db.DBConnection;
-import com.evergreen.zoo.dto.AnimalDto;
 import com.evergreen.zoo.dto.tanleDto.AnimalTDto;
 import com.evergreen.zoo.entity.Animal;
 import com.evergreen.zoo.util.CrudUtil;
@@ -118,12 +117,12 @@ public class AnimalDAOimpl implements AnimalDAO {
 //    }
 
     @Override
-    public Boolean isUpdate(String animalID, Animal animalDto) {
+    public Boolean isUpdate(String animalID, Animal animal) {
         String updateAnimalSQL = "UPDATE animal SET nickName = ?, speciesId = ?, gender = ?, age = ?, emID = ? WHERE animalId = ?";
         String updateHealthSQL = "UPDATE healthrecords SET description = ?, type = ? WHERE animalId = ?";
         try {
-            if(CrudUtil.execute(updateAnimalSQL, animalDto.getName(), animalDto.getSpecies(), animalDto.getGender(), animalDto.getAge(), animalDto.getEmployeeID(), animalID)){
-                if(CrudUtil.execute(updateHealthSQL, animalDto.getHealthDescription(), animalDto.getHealth(), animalID)){
+            if(CrudUtil.execute(updateAnimalSQL, animal.getName(), animal.getSpecies(), animal.getGender(), animal.getAge(), animal.getEmployeeID(), animalID)){
+                if(CrudUtil.execute(updateHealthSQL, animal.getHealthDescription(), animal.getHealth(), animalID)){
                     return true;
                 }
             }
@@ -155,7 +154,7 @@ public class AnimalDAOimpl implements AnimalDAO {
 
 
 //    @Override
-//    public boolean isAddAnimal(Animal animalDto) throws SQLException {
+//    public boolean isAddAnimal(Animal animal) throws SQLException {
 //        String speciesSQL = "SELECT id FROM species WHERE name = ?";
 //        String animalSQL = "INSERT INTO animal (nickName, speciesId, gender, age, emID) VALUES (?,?,?,?,?)";
 //        String animalHealthSQL = "INSERT INTO healthrecords (animalId, date, description, type) VALUES (?,?,?,?)";
@@ -165,12 +164,12 @@ public class AnimalDAOimpl implements AnimalDAO {
 //        Connection connection = DBConnection.getInstance().getConnection();
 //        connection.setAutoCommit(false);
 //        try{
-//            ResultSet rs = CrudUtil.execute(speciesSQL, animalDto.getSpecies());
+//            ResultSet rs = CrudUtil.execute(speciesSQL, animal.getSpecies());
 //            if(rs.next()){
-//                if(CrudUtil.execute(animalSQL, animalDto.getName(), rs.getString(1), animalDto.getGender(), animalDto.getAge(), animalDto.getEmployeeID())){
+//                if(CrudUtil.execute(animalSQL, animal.getName(), rs.getString(1), animal.getGender(), animal.getAge(), animal.getEmployeeID())){
 //                    ResultSet rs2 = CrudUtil.execute(lastAnimalIdSQL);
 //                    if(rs2.next()){
-//                        if(CrudUtil.execute(animalHealthSQL, rs2.getString(1), sqlDate, animalDto.getHealthDescription(), animalDto.getHealth())){
+//                        if(CrudUtil.execute(animalHealthSQL, rs2.getString(1), sqlDate, animal.getHealthDescription(), animal.getHealth())){
 //                            connection.commit();
 //                            return true;
 //                        }
@@ -214,7 +213,7 @@ public class AnimalDAOimpl implements AnimalDAO {
     }
 
     @Override
-    public boolean isAdd(Animal animalDto) throws SQLException {
+    public boolean isAdd(Animal animal) throws SQLException {
         String speciesSQL = "SELECT id FROM species WHERE name = ?";
         String animalSQL = "INSERT INTO animal (nickName, speciesId, gender, age, emID) VALUES (?,?,?,?,?)";
         String animalHealthSQL = "INSERT INTO healthrecords (animalId, date, description, type) VALUES (?,?,?,?)";
@@ -224,12 +223,12 @@ public class AnimalDAOimpl implements AnimalDAO {
         Connection connection = DBConnection.getInstance().getConnection();
         connection.setAutoCommit(false);
         try{
-            ResultSet rs = CrudUtil.execute(speciesSQL, animalDto.getSpecies());
+            ResultSet rs = CrudUtil.execute(speciesSQL, animal.getSpecies());
             if(rs.next()){
-                if(CrudUtil.execute(animalSQL, animalDto.getName(), rs.getString(1), animalDto.getGender(), animalDto.getAge(), animalDto.getEmployeeID())){
+                if(CrudUtil.execute(animalSQL, animal.getName(), rs.getString(1), animal.getGender(), animal.getAge(), animal.getEmployeeID())){
                     ResultSet rs2 = CrudUtil.execute(lastAnimalIdSQL);
                     if(rs2.next()){
-                        if(CrudUtil.execute(animalHealthSQL, rs2.getString(1), sqlDate, animalDto.getHealthDescription(), animalDto.getHealth())){
+                        if(CrudUtil.execute(animalHealthSQL, rs2.getString(1), sqlDate, animal.getHealthDescription(), animal.getHealth())){
                             connection.commit();
                             return true;
                         }

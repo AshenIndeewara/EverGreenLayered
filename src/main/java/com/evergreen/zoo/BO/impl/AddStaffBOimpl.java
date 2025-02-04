@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class AddStaffBOimpl implements AddStaffBO {
 //    RegisterDAOimpl registerDAOimpl = new RegisterDAOimpl();
-    RegisterDAO registerDAO = (RegisterDAO) DAOFactory.getDAOFactory().getDAO(DAOTypes.REGISTRBO);
+    RegisterDAO registerDAO = (RegisterDAO) DAOFactory.getDAOFactory().getDAO(DAOTypes.REGISTRDAO);
     public ArrayList<String> getAllRoles() throws SQLException {
         return registerDAO.getAllRoles();
     }
