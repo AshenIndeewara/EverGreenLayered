@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="972.0" prefWidth="1587.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.evergreen.zoo.controller.DashboardController">
+   <children>
+      <GridPane hgap="15.0" layoutX="95.0" layoutY="25.0" prefHeight="139.0" prefWidth="1545.0" style="-fx-padding: 10;" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="21.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <VBox prefHeight="119.0" prefWidth="433.0" style="-fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20;">
+               <children>
+                  <ImageView fitHeight="35.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../asserts/icon/animal_black.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets left="450.0" top="10.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Label prefHeight="34.0" prefWidth="175.0" text="Total Animals">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="23.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="15.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="animalCount" prefHeight="30.0" prefWidth="195.0" text="1,254">
+                     <VBox.margin>
+                        <Insets left="15.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="Segoe UI Symbol" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20;" GridPane.columnIndex="1">
+               <children>
+                  <ImageView fitHeight="35.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../asserts/icon/staff_black.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets left="450.0" top="10.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Label prefHeight="34.0" prefWidth="175.0" text="Total Staff">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="23.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="15.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="staffCount" prefHeight="30.0" prefWidth="195.0" text="1,254">
+                     <VBox.margin>
+                        <Insets left="15.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="Segoe UI Symbol" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox fx:id="vboxVisitor" prefHeight="200.0" prefWidth="100.0" style="-fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20;" GridPane.columnIndex="2">
+               <children>
+                  <ImageView fitHeight="35.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../asserts/icon/ticket.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets left="450.0" top="10.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Label prefHeight="34.0" prefWidth="175.0" text="Total Visitors">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="23.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="15.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="visitorCount" prefHeight="30.0" prefWidth="332.0" text="1,254">
+                     <VBox.margin>
+                        <Insets left="15.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="Segoe UI Symbol" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </GridPane>
+      <AnchorPane layoutX="32.0" layoutY="209.0" prefHeight="782.0" prefWidth="807.0" style="-fx-border-color: black; -fx-border-radius: 20;" AnchorPane.topAnchor="170.0">
+         <children>
+            <BarChart fx:id="barChartTicket" layoutX="3.0" layoutY="4.0" prefHeight="755.0" prefWidth="802.0" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0">
+               <xAxis>
+                  <CategoryAxis fx:id="xAxis" label="Month" />
+               </xAxis>
+               <yAxis>
+                  <NumberAxis fx:id="yAxis" label="Quantity" />
+               </yAxis>
+            </BarChart>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="857.0" layoutY="209.0" prefHeight="782.0" prefWidth="700.0" style="-fx-border-color: black; -fx-border-radius: 20;" AnchorPane.topAnchor="170.0">
+         <children>
+            <TableView fx:id="animalTable" layoutY="32.0" prefHeight="367.0" prefWidth="489.0" stylesheets="@../../asserts/style/table.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <columns>
+                <TableColumn fx:id="tableSpecies" prefWidth="255.6666259765625" text="Species" />
+                <TableColumn fx:id="tableQTY" prefWidth="194.3333740234375" text="Quantity" />
+                  <TableColumn fx:id="tableStatus" prefWidth="242.3333740234375" text="Conservation Status" />
+              </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
