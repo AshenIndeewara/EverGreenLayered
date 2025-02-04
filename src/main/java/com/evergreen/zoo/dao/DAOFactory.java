@@ -30,7 +30,7 @@ public class DAOFactory {
                 return new TicketDAOimpl();
             case LOGINDAO:
                 return new LoginDAOimpl();
-            case REGISTRBO:
+            case REGISTRDAO:
                 return new RegisterDAOimpl();
             case REPORTDAO:
                 return new ReportDAOimpl();

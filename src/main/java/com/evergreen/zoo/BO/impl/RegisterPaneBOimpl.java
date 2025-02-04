@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class RegisterPaneBOimpl implements RegisterPaneBO {
-    RegisterDAO registerDAO = (RegisterDAO) DAOFactory.getDAOFactory().getDAO(DAOTypes.REGISTRBO);
+    RegisterDAO registerDAO = (RegisterDAO) DAOFactory.getDAOFactory().getDAO(DAOTypes.REGISTRDAO);
     @Override
     public int getRoleIdByDescription(String position) throws SQLException {
         return registerDAO.getRoleIdByDescription(position);
