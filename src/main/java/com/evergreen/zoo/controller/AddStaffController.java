@@ -1,5 +1,9 @@
 package com.evergreen.zoo.controller;
 
+import com.evergreen.zoo.BO.AddStaffBO;
+import com.evergreen.zoo.BO.BOFactory;
+import com.evergreen.zoo.BO.BOTypes;
+import com.evergreen.zoo.BO.RegisterPaneBO;
 import com.evergreen.zoo.BO.impl.AddStaffBOimpl;
 import com.evergreen.zoo.dto.RegisterDto;
 import com.evergreen.zoo.dao.impl.RegisterDAOimpl;
@@ -44,8 +48,10 @@ public class AddStaffController implements Initializable {
     @FXML
     private JFXComboBox<String> role;
 
-    RegisterDAOimpl registerDAOimpl = new RegisterDAOimpl();
-    AddStaffBOimpl addStaffBOimpl = new AddStaffBOimpl();
+//    RegisterDAOimpl registerDAOimpl = new RegisterDAOimpl();
+//    AddStaffBOimpl addStaffBOimpl = new AddStaffBOimpl();
+    AddStaffBO addStaffBO = (AddStaffBO) BOFactory.getBoFactory().getBO(BOTypes.ADDSTAFFBO);
+    RegisterPaneBO registerPaneBO = (RegisterPaneBO) BOFactory.getBoFactory().getBO(BOTypes.REPORTBO);
 
     Boolean isUserValid = false;
     Boolean isPassValid = false;
@@ -82,10 +88,10 @@ public class AddStaffController implements Initializable {
         if(isUserValid && isPassValid && isEmailValid && isPhoneValid && isNameValid) {
             System.out.println("All fields are valid");
 
-            int roleId = registerDAOimpl.getRoleIdByDescription(role.getValue());
+            int roleId = registerPaneBO.getRoleIdByDescription(role.getValue());
             //TODO : add regex check password, encrypt password
 
-            Boolean isUserRegister = registerDAOimpl.registerUser(new RegisterDto(
+            Boolean isUserRegister = registerPaneBO.registerUser(new RegisterDto(
                     usernameTXT.getText(),
                     passwordTXT.getText(),
                     nameTXT.getText(),
@@ -124,7 +130,7 @@ public class AddStaffController implements Initializable {
     void loadRoles() throws SQLException {
         role.getItems().clear();
 
-        ArrayList<String> roles = addStaffBOimpl.getAllRoles();
+        ArrayList<String> roles = addStaffBO.getAllRoles();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(roles);
         role.setItems(observableList);

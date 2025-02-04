@@ -40,6 +40,8 @@ public class BOFactory {
                 return new StockManageBOimpl();
             case SUPPLIERBO:
                 return new SupplierBOimpl();
+            case ADDSTAFFBO:
+                return new AddStaffBOimpl();
         }
         return null;
     }
