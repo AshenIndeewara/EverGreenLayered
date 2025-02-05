@@ -51,7 +51,7 @@ public class AddStaffController implements Initializable {
 //    RegisterDAOimpl registerDAOimpl = new RegisterDAOimpl();
 //    AddStaffBOimpl addStaffBOimpl = new AddStaffBOimpl();
     AddStaffBO addStaffBO = (AddStaffBO) BOFactory.getBoFactory().getBO(BOTypes.ADDSTAFFBO);
-    RegisterPaneBO registerPaneBO = (RegisterPaneBO) BOFactory.getBoFactory().getBO(BOTypes.REPORTBO);
+    RegisterPaneBO registerPaneBO = (RegisterPaneBO) BOFactory.getBoFactory().getBO(BOTypes.REGISTRBO);
 
     Boolean isUserValid = false;
     Boolean isPassValid = false;

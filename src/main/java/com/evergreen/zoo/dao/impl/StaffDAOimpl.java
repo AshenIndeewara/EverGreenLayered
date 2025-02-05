@@ -10,21 +10,45 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class StaffDAOimpl implements StaffDAO {
-    public ArrayList<StaffDto> getAllStaff() throws SQLException {
+    public ArrayList<Employee> getAllStaff() throws SQLException {
         String sql = "select * from employee";
         ResultSet rs = CrudUtil.execute(sql);
-        ArrayList<StaffDto> staff = new ArrayList<>();
+        ArrayList<Employee> staff = new ArrayList<>();
         while (rs.next()) {
-            StaffDto newStaff = new StaffDto(
-                    rs.getString("name"),
-                    getRoleDescription(rs.getInt("position")),
-                    rs.getString("phone"),
-                    rs.getString("email")
-            );
+//            StaffDto newStaff = new StaffDto(
+//                    rs.getString("name"),
+//                    getRoleDescription(rs.getInt("position")),
+//                    rs.getString("phone"),
+//                    rs.getString("email")
+//            );
+            Employee newStaff = new Employee();
+            newStaff.setId(rs.getInt("id"));
+            newStaff.setName(rs.getString("name"));
+            newStaff.setPosition(getRoleDescription(rs.getInt("position")));
+            newStaff.setPhone(rs.getString("phone"));
+            newStaff.setEmail(rs.getString("email"));
+            newStaff.setUserId(String.valueOf(rs.getInt("userId")));
+            newStaff.setHier_date(String.valueOf(rs.getDate("hire_date")));
+            newStaff.setAddress(rs.getString("address"));
             staff.add(newStaff);
         }
         return staff;
     }
+//    public ArrayList<StaffDto> getAllStaff() throws SQLException {
+//        String sql = "select * from employee";
+//        ResultSet rs = CrudUtil.execute(sql);
+//        ArrayList<StaffDto> staff = new ArrayList<>();
+//        while (rs.next()) {
+//            StaffDto newStaff = new StaffDto(
+//                    rs.getString("name"),
+//                    getRoleDescription(rs.getInt("position")),
+//                    rs.getString("phone"),
+//                    rs.getString("email")
+//            );
+//            staff.add(newStaff);
+//        }
+//        return staff;
+//    }
 
     public String getRoleDescription(int roleID) throws SQLException {
         String sql = "select description from role where role_id=?";
@@ -109,11 +133,10 @@ public class StaffDAOimpl implements StaffDAO {
         return roles;
     }
 
-    @Override
-    public boolean isAdd(StaffDto staff) throws SQLException {
-        String sql = "insert into employee values(?,?,?,?)";
-        return CrudUtil.execute(sql, staff.getStaffName(), staff.getStaffRole(), staff.getStaffContact(), staff.getStaffEmail());
-    }
+//    public boolean isAdd(StaffDto staff) throws SQLException {
+//        String sql = "insert into employee values(?,?,?,?)";
+//        return CrudUtil.execute(sql, staff.getStaffName(), staff.getStaffRole(), staff.getStaffContact(), staff.getStaffEmail());
+//    }
 
     @Override
     public Boolean isDelete(Employee employee) {

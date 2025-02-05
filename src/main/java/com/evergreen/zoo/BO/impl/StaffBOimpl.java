@@ -19,7 +19,21 @@ public class StaffBOimpl implements StaffBO {
 
     @Override
     public ArrayList<StaffDto> getAllStaff() throws SQLException {
-        return staffDAO.getAllStaff();
+//        return staffDAO.getAllStaff();
+        ArrayList<Employee> allStaff = staffDAO.getAllStaff();
+        ArrayList<StaffDto> staffDtos = new ArrayList<>();
+        for (Employee employee : allStaff) {
+            StaffDto staffDto = new StaffDto();
+            staffDto.setStaffID(employee.getId());
+            staffDto.setStaffName(employee.getName());
+            staffDto.setStaffRole(employee.getPosition());
+            staffDto.setStaffContact(employee.getPhone());
+            staffDto.setStaffEmail(employee.getEmail());
+            staffDto.setStaffAddress(employee.getAddress());
+            staffDtos.add(staffDto);
+
+        }
+        return staffDtos;
     }
 
     @Override
@@ -33,6 +47,7 @@ public class StaffBOimpl implements StaffBO {
         employee.setPhone(selectedItem.getStaffContact());
         employee.setEmail(selectedItem.getStaffEmail());
         employee.setName(selectedItem.getStaffName());
+        employee.toString();
         return staffDAO.isDelete(employee);
     }
 
@@ -47,13 +62,13 @@ public class StaffBOimpl implements StaffBO {
 
     @Override
     public boolean updateStaff(StaffDto staffDto, int userid) {
-        return staffDAO.isUpdate(new Employee(
-                staffDto.getStaffID(),
-                staffDto.getStaffName(),
-                staffDto.getStaffRole(),
-                staffDto.getStaffContact(),
-                staffDto.getStaffEmail(),
-                staffDto.getStaffAddress()
-        ), userid);
+        Employee employee = new Employee();
+        employee.setPhone(staffDto.getStaffContact());
+        employee.setEmail(staffDto.getStaffEmail());
+        employee.setName(staffDto.getStaffName());
+        employee.setAddress(staffDto.getStaffAddress());
+        employee.setPosition(staffDto.getStaffRole());
+        employee.setId(staffDto.getStaffID());
+        return staffDAO.isUpdate(employee, userid);
     }
 }

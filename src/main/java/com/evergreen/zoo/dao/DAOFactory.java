@@ -27,7 +27,7 @@ public class DAOFactory {
             case TICKETDAO:
                 return new TicketDAOimpl();
             case FORGOTDAO:
-                return new TicketDAOimpl();
+                return new ForgotDAOimpl();
             case LOGINDAO:
                 return new LoginDAOimpl();
             case REGISTRDAO:
