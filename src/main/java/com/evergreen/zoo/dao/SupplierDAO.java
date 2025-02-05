@@ -9,9 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface SupplierDAO extends SuperDAO{
-    public ArrayList<SupplierDto> getSuppliers();
+    public ArrayList<Supplier> getSuppliers();
     public Boolean addSupplier(Supplier supplier);
     public Boolean isUpdateSupplier(Supplier supplier);
-    public ArrayList<FoodDto> getSupplierItems(String supplierID);
+    public ArrayList<Food> getSupplierItems(String supplierID);
     public Boolean isDeleteSupplier(Supplier supplier, ArrayList<Food> items) throws SQLException;
 }

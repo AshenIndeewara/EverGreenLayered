@@ -16,7 +16,20 @@ public class SupplierBOimpl implements SupplierBO {
     SupplierDAO supplierDAO = (SupplierDAO) DAOFactory.getDAOFactory().getDAO(DAOTypes.SUPPLIERDAO);
     @Override
     public ArrayList<SupplierDto> getSuppliers() {
-        return supplierDAO.getSuppliers();
+        ArrayList<Supplier> suppliers = supplierDAO.getSuppliers();
+        ArrayList<SupplierDto> supplierDtos = new ArrayList<>();
+        for (Supplier supplier : suppliers) {
+            supplierDtos.add(new SupplierDto(
+                    String.valueOf(supplier.getSupplierID()),
+                    supplier.getName(),
+                    supplier.getContact(),
+                    supplier.getEmail(),
+                    supplier.getAddress(),
+                    supplier.getDescription()
+            ));
+        }
+        return supplierDtos;
+//        return supplierDAO.getSuppliers();
     }
 
     @Override
@@ -32,7 +45,19 @@ public class SupplierBOimpl implements SupplierBO {
 
     @Override
     public ArrayList<FoodDto> getSupplierItems(String supplierID) {
-        return supplierDAO.getSupplierItems(supplierID);
+//        return supplierDAO.getSupplierItems(supplierID);
+        ArrayList<Food> foods = supplierDAO.getSupplierItems(supplierID);
+        ArrayList<FoodDto> foodDtos = new ArrayList<>();
+        for (Food food : foods) {
+            FoodDto temp = new FoodDto();
+            temp.setFoodID(String.valueOf(food.getFoodID()));
+            temp.setName(food.getName());
+            temp.setPrice(food.getPrice());
+            temp.setQtyOnHand(food.getQtyOnHand());
+            foodDtos.add(temp);
+
+        }
+        return foodDtos;
     }
 
     @Override

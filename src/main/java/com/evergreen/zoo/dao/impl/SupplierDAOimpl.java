@@ -14,18 +14,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class SupplierDAOimpl implements SupplierDAO {
-    public ArrayList<SupplierDto> getSuppliers() {
+    public ArrayList<Supplier> getSuppliers() {
         String sql = "SELECT * FROM supplier";
-        ArrayList<SupplierDto> supplierDtos = new ArrayList<>();
+        ArrayList<Supplier> supplierDtos = new ArrayList<>();
         try {
             ResultSet rs = CrudUtil.execute(sql);
             while (rs.next()) {
-                SupplierDto supplierDto = new SupplierDto();
-                supplierDto.setSupplierID(rs.getString(1));
+                Supplier supplierDto = new Supplier();
+                supplierDto.setSupplierID(Integer.parseInt(rs.getString(1)));
                 supplierDto.setName(rs.getString(2));
                 supplierDto.setAddress(rs.getString(5));
                 supplierDto.setEmail(rs.getString(4));
-                supplierDto.setPhone(rs.getString(3));
+                supplierDto.setContact(rs.getString(3));
                 supplierDto.setDescription(rs.getString(6));
                 supplierDtos.add(supplierDto);
             }
@@ -34,6 +34,26 @@ public class SupplierDAOimpl implements SupplierDAO {
         }
         return supplierDtos;
     }
+//    public ArrayList<SupplierDto> getSuppliers() {
+//        String sql = "SELECT * FROM supplier";
+//        ArrayList<SupplierDto> supplierDtos = new ArrayList<>();
+//        try {
+//            ResultSet rs = CrudUtil.execute(sql);
+//            while (rs.next()) {
+//                SupplierDto supplierDto = new SupplierDto();
+//                supplierDto.setSupplierID(rs.getString(1));
+//                supplierDto.setName(rs.getString(2));
+//                supplierDto.setAddress(rs.getString(5));
+//                supplierDto.setEmail(rs.getString(4));
+//                supplierDto.setPhone(rs.getString(3));
+//                supplierDto.setDescription(rs.getString(6));
+//                supplierDtos.add(supplierDto);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return supplierDtos;
+//    }
 
     @Override
     public Boolean addSupplier(Supplier supplier) {
@@ -77,18 +97,18 @@ public class SupplierDAOimpl implements SupplierDAO {
 //        }
 //    }
 
-    public ArrayList<FoodDto> getSupplierItems(String supplierID) {
+    public ArrayList<Food> getSupplierItems(String supplierID) {
         String sql = "SELECT * FROM food WHERE supplierID = ?";
-        ArrayList<FoodDto> items = new ArrayList<>();
+        ArrayList<Food> items = new ArrayList<>();
         try {
             ResultSet rs = CrudUtil.execute(sql, supplierID);
             while (rs.next()) {
-                FoodDto foodDto = new FoodDto();
-                foodDto.setFoodID(rs.getString(1));
+                Food foodDto = new Food();
+                foodDto.setFoodID(Integer.parseInt(rs.getString(1)));
                 foodDto.setName(rs.getString(2));
                 foodDto.setQtyOnHand(rs.getInt(3));
                 foodDto.setPrice(rs.getDouble(4));
-                foodDto.setMinQty(rs.getInt(5));
+                foodDto.setMinQTY(rs.getInt(5));
                 items.add(foodDto);
             }
         } catch (Exception e) {
