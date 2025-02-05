@@ -132,6 +132,7 @@ public class AnimalPaneController implements Initializable {
     }
 
     private void loadAnimalTable() throws SQLException, ClassNotFoundException {
+        System.out.println("loadAnimalTable");
         ArrayList<AnimalTDto> animalTDtos = animalBO.getAnimals();
         animalTable.getItems().clear();
 //        for(AnimalTDto animalTDto : animalTDtos){

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface AnimalPaneBO extends SuperBo {
-    Boolean isUpdateAnimal(String animalID, AnimalDto animalDto);
+    Boolean isUpdateAnimal(String animalID, AnimalDto animalDto) throws SQLException;
 
     ArrayList<AnimalTDto> searchAnimal(String search) throws SQLException;
 

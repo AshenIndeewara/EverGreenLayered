@@ -5,6 +5,7 @@ import com.evergreen.zoo.dao.DAOFactory;
 import com.evergreen.zoo.dao.DAOTypes;
 import com.evergreen.zoo.dao.ForgotDAO;
 import com.evergreen.zoo.dto.ForgotDto;
+import com.evergreen.zoo.entity.Users;
 
 import java.sql.SQLException;
 
@@ -17,6 +18,8 @@ public class ForgotPassBOimpl implements ForgotBO {
 
     @Override
     public Boolean isChangeUserPW(ForgotDto forgotDto, String newPasswd) throws SQLException {
-        return forgotDAO.isChangeUserPW(forgotDto, newPasswd);
+        Users users = new Users();
+        users.setUsername(forgotDto.getUsername());
+        return forgotDAO.isChangeUserPW(users, newPasswd);
     }
 }

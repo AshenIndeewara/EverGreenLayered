@@ -2,6 +2,7 @@ package com.evergreen.zoo.dao.impl;
 import com.evergreen.zoo.dao.ForgotDAO;
 import com.evergreen.zoo.db.DBConnection;
 import com.evergreen.zoo.dto.ForgotDto;
+import com.evergreen.zoo.entity.Users;
 import com.evergreen.zoo.util.CrudUtil;
 
 import java.sql.Connection;
@@ -11,17 +12,17 @@ import java.sql.SQLException;
 
 public class ForgotDAOimpl implements ForgotDAO {
 
-    public Boolean isChangeUserPW(ForgotDto forgotDto, String newPW) throws SQLException {
-//        Connection connection = DBConnection.getInstance().getConnection();
+//    public Boolean isChangeUserPW(ForgotDto forgotDto, String newPW) throws SQLException {
+////        Connection connection = DBConnection.getInstance().getConnection();
+////        String sql = "UPDATE users SET password = ? WHERE username = ?";
+////        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+////        preparedStatement.setString(1, newPW);
+////        preparedStatement.setString(2, forgotDto.getUsername());
+////
+////        return preparedStatement.executeUpdate() > 0;
 //        String sql = "UPDATE users SET password = ? WHERE username = ?";
-//        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-//        preparedStatement.setString(1, newPW);
-//        preparedStatement.setString(2, forgotDto.getUsername());
-//
-//        return preparedStatement.executeUpdate() > 0;
-        String sql = "UPDATE users SET password = ? WHERE username = ?";
-        return CrudUtil.execute(sql, newPW, forgotDto.getUsername());
-    }
+//        return CrudUtil.execute(sql, newPW, forgotDto.getUsername());
+//    }
 
     public ForgotDto getUserData(String username) throws SQLException {
 
@@ -50,6 +51,12 @@ public class ForgotDAOimpl implements ForgotDAO {
             }
         }
         return null;
+    }
+
+    @Override
+    public Boolean isChangeUserPW(Users users, String newPasswd) throws SQLException {
+        String sql = "UPDATE users SET password = ? WHERE username = ?";
+        return CrudUtil.execute(sql, newPasswd, users.getUsername());
     }
 
 }
