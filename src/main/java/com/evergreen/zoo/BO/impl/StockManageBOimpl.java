@@ -13,7 +13,20 @@ public class StockManageBOimpl implements StockManageBO {
     StockDAO stockDAO = (StockDAO) DAOFactory.getDAOFactory().getDAO(DAOTypes.STOCKMANAGEDAO);
     @Override
     public ArrayList<StockDto> getStock() {
-        return stockDAO.getStock();
+        System.out.println("StockManageBOimpl.getStock");
+//        return stockDAO.getStock();
+        ArrayList<Food> foods = stockDAO.getFoods();
+        ArrayList<StockDto> stockDtos = new ArrayList<>();
+        for (Food food : foods) {
+            StockDto temp = new StockDto();
+            temp.setItemID(String.valueOf(food.getFoodID()));
+            temp.setItem(food.getName());
+            temp.setQty(food.getQtyOnHand());
+            temp.setSupplier(stockDAO.getSupplierName(food.getSupplierId()));
+            temp.setTypeImage(stockDAO.getStockImage(food.getQtyOnHand(), food.getMinQTY()));
+            stockDtos.add(temp);
+        }
+        return stockDtos;
     }
 
     @Override

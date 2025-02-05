@@ -10,11 +10,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public interface StockDAO extends SuperDAO {
-    public ArrayList<StockDto> getStock();
     public ArrayList<String> getItems();
     public Boolean isUpdateStock(String item, String move, int QtyOnHand);
     public ArrayList<String> getSupplier();
     public Boolean isAddNewItem(String itemName, int newQTY, double price, String supplierName, int minQTY);
     public int getIteeQty(String item);
     public boolean isDeleteItem(Food food);
+    public ArrayList<Food> getFoods();
+    public ImageView getStockImage(int qty, int minQty);
+    public String getSupplierName(int supplierId);
 }

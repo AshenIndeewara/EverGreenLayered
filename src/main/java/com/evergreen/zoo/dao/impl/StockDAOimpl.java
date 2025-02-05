@@ -130,4 +130,52 @@ public class StockDAOimpl implements StockDAO {
             return false;
         }
     }
+
+    public ArrayList<Food> getFoods() {
+        String sql = "SELECT * FROM food";
+        ArrayList<Food> foods = new ArrayList<>();
+        try {
+            ResultSet rs = CrudUtil.execute(sql);
+            while (rs.next()) {
+                Food food = new Food();
+                food.setFoodID(rs.getInt(1));
+                food.setName(rs.getString(2));
+                food.setQtyOnHand(rs.getInt(6));
+                food.setPrice(rs.getDouble(4));
+                food.setMinQTY(rs.getInt(5));
+                food.setSupplierId(rs.getInt(3));
+                foods.add(food);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return foods;
+    }
+
+    public String getSupplierName(int supplierId) {
+        String sql = "SELECT name FROM supplier WHERE supplierID = ?";
+        try {
+            ResultSet rs = CrudUtil.execute(sql, supplierId);
+            while (rs.next()) {
+                return rs.getString(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ImageView getStockImage(int qty, int minQty) {
+        if(qty > minQty) {
+            ImageView upImageView = new ImageView(new Image(getClass().getResourceAsStream("/asserts/images/up.png")));
+            upImageView.setFitWidth(20);
+            upImageView.setFitHeight(20);
+            return upImageView;
+        } else {
+            ImageView downImageView = new ImageView(new Image(getClass().getResourceAsStream("/asserts/images/down.png")));
+            downImageView.setFitWidth(20);
+            downImageView.setFitHeight(20);
+            return downImageView;
+        }
+    }
 }
